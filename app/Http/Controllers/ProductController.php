@@ -40,11 +40,13 @@ class ProductController extends Controller
     }//fungsi untuk menampilkan form edit product
 
     public function updateProducts(Request $request){
+        $unit_price = str_replace(['Rp ', '.', ' '], '', $request->update_unit_price);
+        $sale_price = str_replace(['Rp ', '.', ' '], '', $request->update_sale_price);
         Product::where('id',$request->id)->update([
            'name' => $request->update_name,
            'category' => $request->update_category,
-           'unit_price' =>$request->update_unit_price,
-           'sales_unit_price' => $request->update_sale_price,
+           'unit_price'=> $unit_price,
+           'sales_unit_price' => $sale_price,
         ]);
         
         return Redirect()->route('all.product');
